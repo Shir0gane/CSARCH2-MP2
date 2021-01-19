@@ -1,4 +1,4 @@
-function twosComplement(array){
+module.exports.twosComplement = function (array){
 	let complementedArray = [];
 	let carry = 1;
 	array.forEach(function(element){
