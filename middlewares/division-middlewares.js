@@ -27,3 +27,23 @@ module.exports.convertStringToArray = function(req, res, next){
         res.status(500).send("Internal server error.");
     }
 }
+
+/**
+ * Checks if the dividend and divisor in req.params are strings containing only zeros and ones.
+ * If so, calls the next middleware; otherwise, sends a 400 response.
+ * If error is encounted during operation, sends a 500 response
+ */
+module.exports.checkOperands = function(req, res, next){
+    try{
+        let binaryRegex = /^[0-1]{1,}$/
+        if(!binaryRegex.test(req.params.dividend)){
+            res.status(400).send({message: "Dividend is not a valid binary value."});
+        }else if(!binaryRegex.test(req.params.divisor)){
+            res.status(400).send({message: "Divisor is not a valid binary value."});
+        }else{
+            next();
+        }
+    }catch(err){
+        res.status(500).send({message: "Internal Server Error."});
+    }
+}
