@@ -24,7 +24,7 @@ module.exports.convertStringToArray = function(req, res, next){
         req.params.divisor = divisor;
         next();
     }catch(err){
-        res.status(500).send("Internal server error.");
+        res.status(500).send({message: "Internal Server Error."});
     }
 }
 
