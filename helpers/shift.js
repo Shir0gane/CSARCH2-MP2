@@ -7,5 +7,5 @@ module.exports.shift = function (A, Q){
 	let QShift = Q.shift();
 	Q.push(0);
 	A.shift();
-	A.push(Qshift);	
+	A.push(QShift);	
 }
