@@ -1,3 +1,8 @@
+/**
+ * Performs twos complement on the binary argument.
+ * @param {number[]} array - An array of 0s and 1s
+ * @return {number[]} complementedArray - Returns the two's complement of the array
+ */
 module.exports.twosComplement = function (array){
 	let complementedArray = [];
 	let carry = 1;
