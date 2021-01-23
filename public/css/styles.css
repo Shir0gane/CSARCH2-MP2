@@ -1,0 +1,22 @@
+body {
+  margin: auto;
+  height: 100vh;
+  width: 100vw;
+}
+
+.title-div {
+  padding: 30px;
+  background-color: #3AAFA5;
+}
+
+.input-div {
+  margin-top: 100px;
+}
+
+.app-input, .app-icon {
+  margin-right: 30px;
+}
+
+.app-btn {
+  background-color: #3AAFA5;
+}
