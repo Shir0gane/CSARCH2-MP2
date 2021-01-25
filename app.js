@@ -5,7 +5,6 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const divisionMiddlewares = require("./middlewares/division-middlewares");
 const division = require("./helpers/division");
-const routes = require('./routes/indexRoutes');
 
 const port = process.env.PORT || 3000;
 // const port = process.env.PORT || 8080;
@@ -27,7 +26,11 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 
-app.use('/', routes);
+app.get('/', (req, res) => {
+    res.render('home', {
+        title: "Non-Restoring Division Calculator"
+    });
+});
 
 app.get("/divide/:dividend/:divisor", divisionMiddlewares.checkOperands, divisionMiddlewares.convertStringToArray, (req, res) => {
     try{

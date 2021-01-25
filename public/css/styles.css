@@ -5,12 +5,13 @@ body {
 }
 
 .title-div {
+  margin: 20px 0 0 0;
   padding: 30px;
   background-color: #3AAFA5;
 }
 
 .input-div {
-  margin-top: 100px;
+  margin: 100px 0 200px 0;
 }
 
 .app-input, .app-icon {

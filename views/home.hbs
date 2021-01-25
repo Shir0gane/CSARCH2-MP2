@@ -1,5 +1,5 @@
 <!-- Title -->
-<div class="title-div d-flex justify-content-center" id="title">
+<div class="title-div d-flex justify-content-center shadow p-3 mb-5" id="title">
   <h4 class="text-white">{{title}}</h4>
 </div>
 
@@ -9,11 +9,15 @@
     <input type="text" class="form-control app-input rounded-pill" id="dividend" name="dividend" placeholder="Dividend">
     <p class="app-icon">÷</p>
     <input type="text" class="form-control app-input rounded-pill" id="divisor" name="divisor" placeholder="Divisor">
-    <button type="submit" class="btn app-btn text-white rounded-pill">Compute</button>
+    <button type="button" class="btn app-btn text-white rounded-pill" id="app-btn">Compute</button>
   </form>
 </div>
 
 <!-- Display Process -->
 <div class="display-div d-flex justify-content-center" id="display-process">
-  
+  {{#if result}}
+    <!-- Add result here -->
+  {{else}}
+  <p>Nothing so far...</p>
+  {{/if}}
 </div>
