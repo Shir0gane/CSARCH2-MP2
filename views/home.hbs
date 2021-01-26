@@ -18,6 +18,17 @@
 
 </div>
 
+<!-- Mode Dropdown -->
+<div class="form-group row mb-3 w-25">
+    <label for="mode-selector" class="col-sm-2 col-form-label">Mode:</label>
+    <div class="col-sm-10">
+      <select class="form-select" id="mode-selector" aria-label="select mode">
+        <option value="0">All</option>
+        <option value="1">Step-by-Step</option>
+      </select>
+    </div>
+</div>
+
 <!-- Display Process -->
 <div class="display-div" id="display-process">
   <div class="card">
@@ -50,13 +61,16 @@
           <p class="fw-bold mb-3">Steps</p>
           <table id="steps-table" class="table table-bordered table-striped">
             <thead class="thead-light">
-              <th scope="col">Pass</th>
-              <th scope="col">Register A</th>
-              <th scope="col">Register Q</th>
+              <tr>
+                <th scope="col">Pass</th>
+                <th scope="col">Register A</th>
+                <th scope="col">Register Q</th>
+              </tr>
             </thead>
             <tbody>
             </tbody>
           </table>
+          <button id="next-step-btn" type="button" class="btn app-btn text-white rounded-pill" style="display:none">Next Step</button>
         </div>
       </div>
       <hr>

@@ -32,9 +32,9 @@ app.get('/', (req, res) => {
     });
 });
 
-app.get("/divide/:dividend/:divisor", divisionMiddlewares.checkOperands, divisionMiddlewares.convertStringToArray, (req, res) => {
+app.get("/divide", divisionMiddlewares.checkOperands, divisionMiddlewares.convertStringToArray, (req, res) => {
     try{
-        let result = division.nonRestoringDivision(req.params.dividend, req.params.divisor);
+        let result = division.nonRestoringDivision(req.query.dividend, req.query.divisor);
         res.status(200).send(result);
     }catch(err){
         res.status(500).send({message: "Internal Server Error."});

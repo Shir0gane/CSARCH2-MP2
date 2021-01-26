@@ -17,7 +17,16 @@ let initRegisterM = document.getElementById("init-register-M");
 
 let alerts = document.getElementById("alert-div"); // The section containing all alerts
 
+// Next-step button
+let nextStepButton = document.getElementById("next-step-btn");
+
+// Dropdown for mode 
+let modeSelect = document.getElementById("mode-selector");
+
 let latestResult; // The latest result of the division operation
+
+const ALL_MODE = 0;
+const STEP_BY_STEP_MODE = 1;
 
 solutionTable.showTableMessage("-");
 
@@ -55,7 +64,7 @@ function getResult(successCallback, errorCallback){
     let xml = new XMLHttpRequest();
     xml.addEventListener("load", successCallback);
     xml.addEventListener("error", errorCallback)
-    xml.open("GET", `divide/${dividend}/${divisor}`);
+    xml.open("GET", `divide?dividend=${dividend}&divisor=${divisor}`);
     xml.send();
 }
 
@@ -65,6 +74,8 @@ function getResult(successCallback, errorCallback){
  * @param {Object} result - The result obtained from GET /divide/:dividend/:divisor
  */
 function updateResults(result){
+    let mode = Number(modeSelect.value);
+    nextStepButton.style.display = (mode === ALL_MODE) ? "none": "block";
     result.quotient = result.quotient.join("");
     result.remainder = result.remainder.join("");
     result.init.A = result.init.A.join("");
@@ -80,14 +91,41 @@ function updateResults(result){
     initRegisterM.textContent = result.init.M;
 
     solutionTable.clearContents();
+
     for(let i=0; i<solution.length; ++i){
         solution[i].Q = solution[i].Q.join("");
         solution[i].A = solution[i].A.join("");
-        solutionTable.insertRow([String(i + 1), solution[i].A, solution[i].Q]);
     }
+
+    if(mode === ALL_MODE){
+        for(let i=0; i<solution.length; ++i){
+            solutionTable.insertRow([String(i + 1), solution[i].A, solution[i].Q]);
+        }
+    }else{
+        solutionTable.insertRow([1, solution[0].A, solution[0].Q]);
+    }
+    
 
     latestResult = result;
 }
+
+/**
+ * Show next step of solution. Hides the next step button
+ * if no more steps are available
+ */
+function nextStep(){
+    let currentStepCount = solutionTable.tableElem.querySelectorAll("tbody>tr").length;
+    let solution = latestResult.solution;
+    if(currentStepCount < solution.length){
+        solutionTable.insertRow([String(currentStepCount + 1), solution[currentStepCount].A, solution[currentStepCount].Q]);
+        currentStepCount++;
+    }
+    if(currentStepCount === latestResult.solution.length){
+        nextStepButton.style.display = "none"
+    }
+}
+
+nextStepButton.addEventListener("click", nextStep);
 
 /**
  * Removes the existing results in the page and sets the latestResult variable to null
@@ -100,6 +138,7 @@ function clearResults(){
     initRegisterA.textContent = "";
     initRegisterQ.textContent = "";
     initRegisterM.textContent = "";
+    nextStepButton.style.display = "none";
 }
 
 // Execute upon submitting the input form for division
@@ -117,7 +156,13 @@ divisionForm.formElement.addEventListener("submit", function(event){
     
     getResult(function(){
         clearAlerts();
-        let result = JSON.parse(this.responseText);
+        let result;
+        try{
+            result = JSON.parse(this.responseText);
+        }catch(err){
+            result = this.responseText;
+        }
+        
         if(this.status === 200){
             updateResults(result);
         }else{
