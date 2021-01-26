@@ -5,19 +5,96 @@
 
 <!-- User Input -->
 <div class="input-div d-flex justify-content-center" id="user-input">
-  <form class="form-control-group d-flex">
-    <input type="text" class="form-control app-input rounded-pill" id="dividend" name="dividend" placeholder="Dividend">
-    <p class="app-icon">÷</p>
-    <input type="text" class="form-control app-input rounded-pill" id="divisor" name="divisor" placeholder="Divisor">
-    <button type="button" class="btn app-btn text-white rounded-pill" id="app-btn">Compute</button>
+  <form id="division-form" class="form-control-group d-flex align-items-center">
+    <input type="text" class="form-control app-input rounded-pill" id="dividend" name="dividend" placeholder="Dividend" required>
+    <p class="app-icon mb-0">÷</p>
+    <input type="text" class="form-control app-input rounded-pill" id="divisor" name="divisor" placeholder="Divisor" required>
+    <button type="submit" class="btn app-btn text-white rounded-pill" id="app-btn">Compute</button>
   </form>
 </div>
 
-<!-- Display Process -->
-<div class="display-div d-flex justify-content-center" id="display-process">
-  {{#if result}}
-    <!-- Add result here -->
-  {{else}}
-  <p>Nothing so far...</p>
-  {{/if}}
+<!-- Alerts -->
+<div id="alert-div" class="mb-3">
+
 </div>
+
+<!-- Mode Dropdown -->
+<div class="form-group row mb-3 w-25">
+    <label for="mode-selector" class="col-sm-2 col-form-label">Mode:</label>
+    <div class="col-sm-10">
+      <select class="form-select" id="mode-selector" aria-label="select mode">
+        <option value="0">All</option>
+        <option value="1">Step-by-Step</option>
+      </select>
+    </div>
+</div>
+
+<!-- Display Process -->
+<div class="display-div" id="display-process">
+  <div class="card">
+    <div class="card-header">
+      Result
+    </div>
+    <div class="card-body">
+      <!-- Solution -->
+      <div id="solution-section">
+        <!-- Initialization -->
+        <div id="init-section">
+          <p class="fw-bold mb-3">Initialization</p>
+          <table id="init-table" class="table table-bordered">
+            <tr>
+              <th class="fw-normal">Register A</th>
+              <td id="init-register-A"></td>
+            </tr>
+            <tr>
+              <th class="fw-normal">Register Q</th>
+              <td id="init-register-Q"></td>
+            </tr> 
+            <tr>
+              <th class="fw-normal">Register M</th>
+              <td id="init-register-M"></td>
+            </tr> 
+          </table>
+        </div>
+        <div id="steps-section">
+          <!-- Steps -->
+          <p class="fw-bold mb-3">Steps</p>
+          <table id="steps-table" class="table table-bordered table-striped">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col">Pass</th>
+                <th scope="col">Register A</th>
+                <th scope="col">Register Q</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+          <button id="next-step-btn" type="button" class="btn app-btn text-white rounded-pill" style="display:none">Next Step</button>
+        </div>
+      </div>
+      <hr>
+      <!-- Quotient and Remainder -->
+      <div id="result-section">
+        <p class="fw-bold mb-3">Final Result</p>
+        <div class="mb-3 row">
+          <label for="quotient" class="col-sm-2 col-form-label">Quotient (Q)</label>
+          <div class="col-sm-10">
+            <input type="text" readonly class="form-control" id="quotient">
+          </div>
+        </div>
+        <div class="mb-3 row">
+          <label for="remainder" class="col-sm-2 col-form-label">Remainder (A)</label>
+          <div class="col-sm-10">
+            <input type="text" readonly class="form-control" id="remainder">
+          </div>
+        </div>
+      </div>
+
+      
+      <button type="button" class="btn app-btn text-white rounded-pill" id="download-btn">Download Result</button>
+    </div>
+  </div>
+</div>
+
+<script src="/js/script.bundle.js"></script>

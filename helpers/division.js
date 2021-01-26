@@ -17,6 +17,12 @@ module.exports.nonRestoringDivision = function(dividend, divisor){
     let isPreviousPositive = true // Indicates if the value of A register is positive in the previous iteration
     let solution = [];
 
+    let init = {
+        A: A.slice(), 
+        M: M.slice(), 
+        Q: Q.slice()
+    };
+
     for(let i=0; i<dividend.length; ++i){
         shift.shift(A, Q); // Shift left AQ
 
@@ -42,6 +48,7 @@ module.exports.nonRestoringDivision = function(dividend, divisor){
     }
 
     return {
+        init,
         remainder: A,
         quotient: Q,
         solution
