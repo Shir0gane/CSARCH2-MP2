@@ -8,13 +8,18 @@ let dividendInput = document.getElementById("dividend");
 let divisorInput = document.getElementById("divisor");
 
 // For diplaying results
-let solutionTable = new Table(document.getElementById("solution-table"));
+let solutionTable = new Table(document.getElementById("steps-table"));
 let quotient = document.getElementById("quotient");
 let remainder = document.getElementById("remainder");
+let initRegisterA = document.getElementById("init-register-A");
+let initRegisterQ = document.getElementById("init-register-Q");
+let initRegisterM = document.getElementById("init-register-M");
 
 let alerts = document.getElementById("alert-div"); // The section containing all alerts
 
 let latestResult; // The latest result of the division operation
+
+solutionTable.showTableMessage("-");
 
 /**
  * Shows an alert in the page
@@ -62,10 +67,17 @@ function getResult(successCallback, errorCallback){
 function updateResults(result){
     result.quotient = result.quotient.join("");
     result.remainder = result.remainder.join("");
+    result.init.A = result.init.A.join("");
+    result.init.Q = result.init.Q.join("");
+    result.init.M = result.init.M.join("");
     let solution = result.solution;
 
     quotient.value = result.quotient;
     remainder.value = result.remainder;
+
+    initRegisterA.textContent = result.init.A;
+    initRegisterQ.textContent = result.init.Q;
+    initRegisterM.textContent = result.init.M;
 
     solutionTable.clearContents();
     for(let i=0; i<solution.length; ++i){
@@ -85,6 +97,9 @@ function clearResults(){
     remainder.value = "";
     solutionTable.clearContents();
     latestResult = null;
+    initRegisterA.textContent = "";
+    initRegisterQ.textContent = "";
+    initRegisterM.textContent = "";
 }
 
 // Execute upon submitting the input form for division
@@ -92,7 +107,7 @@ divisionForm.formElement.addEventListener("submit", function(event){
     event.preventDefault();
     clearAlerts();
     clearResults();
-
+    solutionTable.showTableMessage("-");
     divisionForm.showLoading("");
     let loadingAlert = addAlert("alert-secondary", "Computing...");
     let spinnerElem = spinner.createSpinnerBorder();

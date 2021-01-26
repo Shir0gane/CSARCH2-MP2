@@ -25,34 +25,59 @@
       Result
     </div>
     <div class="card-body">
+      <!-- Solution -->
+      <div id="solution-section">
+        <!-- Initialization -->
+        <div id="init-section">
+          <p class="fw-bold mb-3">Initialization</p>
+          <table id="init-table" class="table table-bordered">
+            <tr>
+              <th class="fw-normal">Register A</th>
+              <td id="init-register-A"></td>
+            </tr>
+            <tr>
+              <th class="fw-normal">Register Q</th>
+              <td id="init-register-Q"></td>
+            </tr> 
+            <tr>
+              <th class="fw-normal">Register M</th>
+              <td id="init-register-M"></td>
+            </tr> 
+          </table>
+        </div>
+        <div id="steps-section">
+          <!-- Steps -->
+          <p class="fw-bold mb-3">Steps</p>
+          <table id="steps-table" class="table table-bordered table-striped">
+            <thead class="thead-light">
+              <th scope="col">Pass</th>
+              <th scope="col">Register A</th>
+              <th scope="col">Register Q</th>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <hr>
       <!-- Quotient and Remainder -->
       <div id="result-section">
+        <p class="fw-bold mb-3">Final Result</p>
         <div class="mb-3 row">
-          <label for="quotient" class="col-sm-2 col-form-label">Quotient</label>
+          <label for="quotient" class="col-sm-2 col-form-label">Quotient (Q)</label>
           <div class="col-sm-10">
             <input type="text" readonly class="form-control" id="quotient">
           </div>
         </div>
         <div class="mb-3 row">
-          <label for="remainder" class="col-sm-2 col-form-label">Remainder</label>
+          <label for="remainder" class="col-sm-2 col-form-label">Remainder (A)</label>
           <div class="col-sm-10">
             <input type="text" readonly class="form-control" id="remainder">
           </div>
         </div>
       </div>
-      <!-- Solution -->
-      <div id="solution-section">
-        <p>Solution</p>
-        <table id="solution-table" class="table table-bordered">
-          <thead>
-            <th scope="col">Pass</th>
-            <th scope="col">Register A</th>
-            <th scope="col">Register Q</th>
-          </thead>
-          <tbody>
-          </tbody>
-        </table>
-      </div>
+
+      
       <button type="button" class="btn app-btn text-white rounded-pill" id="download-btn">Download Result</button>
     </div>
   </div>
