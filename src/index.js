@@ -1,6 +1,7 @@
 import Form from "./form";
 import Table from "./table";
 import spinner from "./spinner";
+import { saveAs } from "file-saver";
 
 // inputs
 let divisionForm = new Form(document.getElementById("division-form"));
@@ -27,6 +28,8 @@ let nextStepButton = document.getElementById("next-step-btn");
 
 // Dropdown for mode 
 let modeSelect = document.getElementById("mode-selector");
+
+let downloadButton = document.getElementById("download-btn");
 
 let latestResult; // The latest result of the division operation
 
@@ -226,3 +229,40 @@ divisionForm.formElement.addEventListener("submit", function(event){
     }, dividendInput.value, divisorInput.value);
 });
 
+/**
+ * Downloads the txt file based on the latest division result
+ */
+function downloadTxtFile(){
+    if(!latestResult){
+        return;
+    }
+
+    let content = "";
+
+    content += "INITIALIZATION\n";
+    content += `Register A: ${latestResult.init.A}\n`;
+    content += `Register Q: ${latestResult.init.Q}\n`;
+    content += `Register M: ${latestResult.init.M}\n`;
+
+    content += "\n\n"
+
+    content += "STEPS\n";
+    for(let i=0; i<latestResult.solution.length; ++i){
+        content += `Pass ${i + 1}:\n`;
+        content += `\tA:${latestResult.solution[i].A}\n`;
+        content += `\tQ:${latestResult.solution[i].Q}\n`;
+    }
+
+    content += "\n\n";
+
+    content += "FINAL RESULT\n";
+    content += `Quotient (Q): ${latestResult.quotient}\n`;
+    content += `Remainder (A): ${latestResult.remainder}\n`;
+
+    let blob = new Blob([content], {type: "text/plain;charset=utf-8"});
+    saveAs(blob, "non-restoring-division-result.txt");
+}
+
+downloadButton.addEventListener("click", function(){
+    downloadTxtFile();
+});
