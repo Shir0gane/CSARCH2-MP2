@@ -233,7 +233,8 @@ divisionForm.formElement.addEventListener("submit", function(event){
         divisionForm.setEnabled(true);
     }, function(){
         clearAlerts();
-        addCardMessage("Error.");
+        removeCardMessages();
+        addCardMessage("Error.", resultCard);
         addAlert("alert-danger", "Cannot communicate with server rigth now.");
         divisionForm.setEnabled(true);
     }, dividendInput.value, divisorInput.value);
