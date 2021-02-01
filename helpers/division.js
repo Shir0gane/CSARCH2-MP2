@@ -24,12 +24,15 @@ module.exports.nonRestoringDivision = function(dividend, divisor){
     };
 
     for(let i=0; i<dividend.length; ++i){
+        let operation;
         shift.shift(A, Q); // Shift left AQ
 
         if(isPreviousPositive){
             A = adder.binaryAdder(A, complement.twosComplement(M)).sum;
+            operation = "Subtraction";
         }else{
             A = adder.binaryAdder(A, M).sum;
+            operation = "Addition";
         }
 
         Q[Q.length  - 1] = Number(!A[0]);
@@ -39,11 +42,13 @@ module.exports.nonRestoringDivision = function(dividend, divisor){
         // Restore if last iteration and A is negative
         if(i === (dividend.length - 1) && !isPreviousPositive){
             A = adder.binaryAdder(A, M).sum;
+            operation += " with Restore"
         }
 
         solution.push({
             A: A.slice(),
-            Q: Q.slice()
+            Q: Q.slice(),
+            operation
         });
     }
 

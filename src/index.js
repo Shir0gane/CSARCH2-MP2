@@ -78,6 +78,16 @@ function getResult(successCallback, errorCallback, dividend, divisor){
 }
 
 /**
+ * Adds a new row in the solution table
+ * @param {number} passNumber - The current iteration in the non-restoring algorithm
+ * @param {{A: string, Q: string, operation: string}} solution - The values of the register after
+ * the iteration and a string describing the operation done in the iteration
+ */
+function addRow(passNumber, solution){
+    solutionTable.insertRow([String(passNumber), solution.A, solution.Q, solution.operation]);
+}
+
+/**
  * Updates the page based on the result of the division operation. Sets the latestResult
  * variable to the result, where all integer arrays are converted to string.
  * @param {Object} result - The result obtained from GET /divide/:dividend/:divisor
@@ -109,11 +119,11 @@ function updateResults(result){
 
     if(mode === ALL_MODE){
         for(let i=0; i<solution.length; ++i){
-            solutionTable.insertRow([String(i + 1), solution[i].A, solution[i].Q]);
+            addRow(i+1, solution[i]);
         }
         finalResultSection.style.display = "block";
     }else{
-        solutionTable.insertRow([1, solution[0].A, solution[0].Q]);
+        addRow(1, solution[0]);
         finalResultSection.style.display = "none";
     }
     
@@ -161,7 +171,7 @@ function nextStep(){
     let currentStepCount = solutionTable.tableElem.querySelectorAll("tbody>tr").length;
     let solution = latestResult.solution;
     if(currentStepCount < solution.length){
-        solutionTable.insertRow([String(currentStepCount + 1), solution[currentStepCount].A, solution[currentStepCount].Q]);
+        addRow(currentStepCount + 1, solution[currentStepCount]);
         currentStepCount++;
     }
     if(currentStepCount === solution.length){
