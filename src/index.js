@@ -261,6 +261,7 @@ function downloadTxtFile(){
         content += `Pass ${i + 1}:\n`;
         content += `\tA:${latestResult.solution[i].A}\n`;
         content += `\tQ:${latestResult.solution[i].Q}\n`;
+        content += `\tOperation Performed: ${latestResult.solution[i].operation}\n`
     }
 
     content += "\n\n";
